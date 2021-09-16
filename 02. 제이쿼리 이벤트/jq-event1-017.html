@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키보드 접근성 배려</title>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <p class="btn_wrap">
+            <button class="btn_1">버튼1</button>
+        </p>
+    </div>
+    <p>
+        <button class="del_1">버튼1 이벤트 해제</button>
+        <button class="del_2">버튼2 이벤트 해제</button>
+    </p>
+    <script>
+        //.btn_1요소에 mouseover 이벤트 등록
+        //라이브 이벤트 방식 X
+        $(".btn_1").on("mouseover",function(){
+            alert("HELLO!");
+        });
+        //.btn_2요소에 mouseover 이벤트 등록
+        //라이브 이벤트 방식 O
+        $(document).on("mouseover",".btn_2", function(){
+            alert("WELCOME!");
+        });
+        //.btn_2 라는 새로운 button요소를 추가
+        //라이브 이벤트 등록 방식이므로 요소 추가 될 때 자동 이벤트 등록됨
+        var btn_2 = $("<p><button class=\"btn_2\">버튼2</button></p>");
+        $("#wrap").append(btn_2);
+
+        //.del_1 요소 클릭 시 .btn_1 요소의 mouseover 이벤트 삭제
+        //라이브 이벤트 제거 방식 X
+        $(".del_1").on("click",function(){
+            $(".btn_1").off("mouseover");
+        });
+        //.del_2 요소 클릭 시 .btn_2 요소의 mouseover 이벤트 삭제
+        //라이브 이벤트 제거 방식 O
+        $(".del_2").on("click",function(){
+            $(document).off("mouseover",".btn_2");
+        });
+
+        
+    </script>
+</body>
+</html>

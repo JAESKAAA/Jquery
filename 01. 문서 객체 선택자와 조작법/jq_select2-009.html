@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>each</title>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<script>
+    var arr1 = ["서울","대전","부산","전주"];
+    var arr2 = ["한국","미국","일본","중국"];
+    var obj = {
+        "name" : "정부장",
+        "area" : "서울"
+    };
+
+    //inArray -> 부산이라는 스트링이 있는 인덱스를 배열에서 검색해서 리턴
+    var idxNum = $.inArray("부산",arr1);
+    console.log(idxNum);
+    
+    //isArray -> 배열인지 아닌지 boolean으로 리턴
+    var okArray1 = $.isArray(arr1);
+    var okArray2 = $.isArray(obj);
+    console.log(okArray1);
+    console.log(okArray2);
+
+    //merge -> 매개변수1에 있는 배열 끝에 매개변수2에 있는 배열을 이어 붙임
+    $.merge(arr2, arr1);
+    console.log(arr2);
+
+</script>
+</body>
+</html>

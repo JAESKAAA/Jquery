@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키보드 접근성 배려</title>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <p>
+            <button class="btn_1">버튼1</button>
+        </p>
+        <p>
+            <button class="btn_2">버튼2</button>
+        </p>
+    </div>
+    <script>
+        //.btn_1.on 요소에 먼저 이벤트 등록- 라이브 이벤트 등록방식 x
+        $(".btn_1.on").on("mouseover focus",function(){
+            alert("HELLO!");
+        });
+        //.btn_1요소에 on class 추가해도 이벤트가 등록되지 않음
+        $(".btn_1").addClass("on");
+        //.btn_2.on 요소에 먼저 이벤트를 등록 - 라이브 이벤트 등록 방식
+        $(document).on("mouseover focus", ".btn_2.on", function(){
+            alert("WELCOME!");
+        });
+        //.btn_2 요소에 on class 추가하면 이벤트가 등록됨
+        $(".btn_2").addClass("on");
+    </script>
+</body>
+</html>

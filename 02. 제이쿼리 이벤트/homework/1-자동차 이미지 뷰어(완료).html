@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <style>
+        body{
+            font-size:9pt;
+        
+        }
+        .panel {
+            width:840px;
+            height:415px;
+            border:1px solid #ccc;
+        }
+        
+        .nav {
+            width:840px;
+            text-align:center;
+        }
+        button {
+        	margin-top:5px;
+        	padding:5px;
+        }
+    </style>
+</head>
+<body>  
+    <div class="panel">
+        <img src="images/1.jpg" id="view">            
+    </div>
+    <div class="nav">
+        <button id="play">play</button>
+        <button id="stop">stop</button>
+        <button id="prev">prev</button>
+        <button id="next">next</button>
+    </div>
+    <script>
+       /*
+        * step #07
+        *   - autoplay 기능 멈추기
+        *
+        * step #06
+        *   - autoPlay 기능 구현
+        *
+        * step #05
+        *   - 리팩토링 하기
+        *       - 이전 이미지 출려과 다음 이미지 출력의 중복 코드 제거하기
+        *
+        * step #04
+        *   - 이전 이미지 출력
+        *
+        * step #03
+        *   - 다음 이미지 출력
+        *
+        * step #02
+        *   - 기본 구조 잡기
+        *   - 이벤트 초기화
+        *
+        * step #01
+        *   - 전역 요소 초기화
+        *
+        */
+
+       // 전역 변수 선언 부분
+        var $view = null;
+        var currentIndex=1;
+        var timerID = 0;
+        /*인터벌 정지를 위해 interval 변수를 전역으로 선언함*/
+        var interval=null;
+
+        // 시작 부분
+        $(document).ready(function(){
+            // 전역 요소 초기화 함수 호출
+           init();
+
+           // 이벤트 초기화 함수 호출
+           initEvent();
+        })
+
+        // 전역 요소 초기화
+        function init(){
+            $view = $("#view");
+        }
+
+        // 이벤트 초기화 함수
+        function initEvent(){
+            // 오토 플레이 실행
+            $("#play").click(function(){
+                startAutoPlay();
+            })
+
+            // 오토 플레이 멈춤
+            $("#stop").click(function(){
+                stopAutoPlay();
+            })
+
+            // 다음 이미지
+            $("#next").click(function(){
+                nextImage();
+            })
+
+            // 이전 이미지
+            $("#prev").click(function(){
+                prevImage();
+            })
+
+        }
+
+        // 오토 플레이 실행
+        function startAutoPlay(){
+            if(timerID==0){
+                //setInterver 100
+              interval = setInterval(nextImage, 100);
+            /*인터벌 정지를 위해 timerId가 0이 아닌 값 부여*/
+              timerID=1;
+            }
+        }
+
+        // 오토 플레이 멈춤
+        function stopAutoPlay(){
+             if(timerID!=0){
+                 //setInteval 제거
+                 /*클리어 인터벌에 인터벌 매개변수를 주면 해당 인터벌을 정지할 수 있음*/
+                 clearInterval(interval);
+                 /*timerId를 다시0으로 만들어서 play누르면 starAutoPlay가 실행되도록 만듬*/
+                timerID=0;
+             }
+        }
+
+        // 다음 이미지
+        function nextImage(){
+            var index = currentIndex;
+            if(index>=60) {
+                //index 초기화
+                index =1;
+            }                
+            /*index가 60이하가 아니라면 이미지를1씩 증가시킴*/
+            index++;
+            showImage(index)
+        }
+
+        // 이전 이미지
+        function prevImage(){
+            var index = currentIndex;
+            /*index를 1씩 감소시키며, 조건절 전에 수행되어야 index 60으로 갈 수 있음*/
+            index--;
+            if(index<=0) {
+                //마지막 index로
+                index = 60;
+            }
+            
+            showImage(index);
+
+        }
+
+        // index 번째 이미지 출력
+        function showImage(index){
+            //이미지 출력
+            /*attr메서드를 이용하여 선택한 요소의 속성값을 변경 할 수있음
+             *view(img태그)의 src속성(1번째 매개변수)을 2번 매개변수로 변경
+             *2번 매개변수 => 가운데 숫자만 1씩 증가되도록 변수로 넣어줌
+             */
+            $view.attr("src","images/"+index+".jpg");
+            currentIndex = index;
+
+            // 테스트를 위해 index 값 출력
+            console.log(currentIndex);
+        }
+
+    </script>
+</body>
+
+</html>

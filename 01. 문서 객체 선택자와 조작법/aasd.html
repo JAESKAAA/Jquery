@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    
+    
+    <ul>
+        <li>1번마</li>
+        <li>2번마</li>
+        <li>3번마</li>
+    </ul>
+        <script>
+            let arr = [1,2,3,4,5,6,7];
+
+            $(arr).each(function(i,o){
+                console.log(i+"는"+o)
+            });
+            console.log("여기까지1번")
+            $.each($("li"), function(i,o){
+                console.log(i+"는"+o);
+            });
+
+           var arr2 = $.map(arr,function(n){
+                return n*2;
+            });
+            console.log(arr2);
+        </script>
+</body>
+</html>
